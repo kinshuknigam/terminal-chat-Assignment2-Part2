@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  chatbot_parser:
+    build: ./chatbot_parser/
+    image: chatbot_parser-image
+    ports:
+      - "5050:5050"
+    depends_on:
+      - db
+  shrug_command:
+    build: ./shrug_command/
+    image: shrug_command-image
+    ports:
+      - "5051:5051"    
+    environment:
+      SENDGRID_API_KEY: SENDGRID_API_KEY
+  email_command:
+    build: ./email_command/
+    image: email_command-image
+    ports:
+      - "5052:5052"    
+    environment:
+      SENDGRID_API_KEY: SENDGRID_API_KEY
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chatbot
+    volumes:
+      - ./init.db.sql:/docker-entrypoint-initdb.d/init.db.sql
+    ports:
+      - 5432:5432

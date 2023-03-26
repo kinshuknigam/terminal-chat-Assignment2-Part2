@@ -13,14 +13,14 @@ services:
     ports:
       - "5051:5051"    
     environment:
-      SENDGRID_API_KEY: SENDGRID_API_KEY
+      - SENDGRID_API_KEY=SENDGRID_API_KEY
   email_command:
     build: ./email_command/
     image: email_command-image
     ports:
       - "5052:5052"    
     environment:
-      SENDGRID_API_KEY: SENDGRID_API_KEY
+      - SENDGRID_API_KEY=SENDGRID_API_KEY
   db:
     image: postgres
     environment:
